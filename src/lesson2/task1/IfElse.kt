@@ -102,9 +102,9 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    val a = (kingX - rookX)
-    val b = (kingY - rookY)
-    val a1 = abs(kingX-bishopX) - abs(kingY - bishopY)
+    val a: Int = (kingX - rookX)
+    val b: Int = (kingY - rookY)
+    val a1: Int = abs(kingX-bishopX) - abs(kingY - bishopY)
     return when {
         (a != 0) && (a1 != 0) && (b != 0) -> 0
         ((a == 0) || (b == 0)) && (a1 != 0) -> 1
@@ -124,25 +124,25 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
 fun triangleKind(a: Double, b: Double, c: Double): Int {
     if ((a + b < c) || (b + c < a) || (a + c < b)) return -1
     if ((a == b) && (b == c)) return 0
-    if (((a == b) && (a>c))||((a == c) && (a>c)) || ((b == c) && (b>a))) return 0
-    if (((a == b) && (a<c))||((a == c) && (a<c)) || ((b == c) && (b<a))) return 2
-    val max: Double = a
+    if (((a == b) && (a > c)) || ((a == c) && (a > c)) || ((b == c) && (b > a))) return 0
+    if (((a == b) && (a < c)) || ((a == c) && (a < c)) || ((b == c) && (b < a))) return 2
+    val maxside: Double = a
     val fside: Double = b
     val sside: Double = c
-    if (b>max) {
-        max.equals(b)
+    if (b>maxside) {
+        maxside.equals(b)
         fside.equals(a)
         sside.equals(c)
     }
-    if (c>max) {
-        max.equals(c)
+    if (c>maxside) {
+        maxside.equals(c)
         fside.equals(a)
         sside.equals(b)
     }
     return when {
-        max*max == fside*fside + sside*sside -> 1
-        max*max < fside*fside + sside*sside -> 2
-        max*max > fside*fside + sside*sside -> 0
+        maxside*maxside == fside*fside + sside*sside -> 1
+        maxside*maxside < fside*fside + sside*sside -> 2
+        maxside*maxside > fside*fside + sside*sside -> 0
         else -> -1
         }
     }
