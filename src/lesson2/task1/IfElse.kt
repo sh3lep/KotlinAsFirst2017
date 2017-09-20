@@ -55,12 +55,12 @@ fun ageDescription(age: Int): String = when (age%100) {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    val halfway = ((t1*v1 + t2*v2 + t3*v3)/2)
+    val halfway = ((t1 * v1 + t2 * v2 + t3 * v3) / 2)
     return when {
-        (t1*v1 >= halfway) -> halfway/v1
+        (t1 * v1 >= halfway) -> halfway / v1
         else -> when {
-            ((t1*v1 + t2*v2)>= halfway) -> (halfway - t1*v1)/v2 + t1
-            else -> (halfway - t1*v1 - t2*v2)/v3 + t1 +t2
+            ((t1 * v1 + t2 * v2) >= halfway) -> (halfway - t1 * v1) / v2 + t1
+            else -> (halfway - t1 * v1 - t2 * v2) / v3 + t1 +t2
             }
         }
     }
@@ -104,7 +104,7 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           bishopX: Int, bishopY: Int): Int {
     val a: Int = (kingX - rookX)
     val b: Int = (kingY - rookY)
-    val a1: Int = abs(kingX-bishopX) - abs(kingY - bishopY)
+    val a1: Int = abs(kingX - bishopX) - abs(kingY - bishopY)
     return when {
         (a != 0) && (a1 != 0) && (b != 0) -> 0
         ((a == 0) || (b == 0)) && (a1 != 0) -> 1
@@ -140,9 +140,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
         sside.equals(b)
     }
     return when {
-        maxside*maxside == fside*fside + sside*sside -> 1
-        maxside*maxside < fside*fside + sside*sside -> 2
-        maxside*maxside > fside*fside + sside*sside -> 0
+        maxside * maxside == fside * fside + sside * sside -> 1
+        maxside * maxside < fside * fside + sside * sside -> 2
+        maxside * maxside > fside * fside + sside * sside -> 0
         else -> -1
         }
     }
