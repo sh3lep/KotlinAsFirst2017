@@ -144,13 +144,13 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     else -> when {
         (b == c) -> 0
         else -> when {
-            (c > a) && (d < b) -> abs(d - c)
+            (c >= a) && (d <= b) -> abs(d - c)
             else -> when {
-                (a > c) && (b < d) -> abs(b - a)
+                (a >= c) && (b <= d) -> abs(b - a)
                 else -> when {
-                    (a > c) -> abs(d - a)
+                    (a > c) -> abs(abs(d) - abs(a))
                     else -> when {
-                        (c > a) -> abs(b - c)
+                        (c > a) -> abs(abs(b) - abs(c))
                         else -> -1
                     }
                 }
