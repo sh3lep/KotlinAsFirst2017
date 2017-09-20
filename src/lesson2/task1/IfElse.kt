@@ -122,30 +122,14 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((a + b < c) || (b + c < a) || (a + c < b)) return -1
-    if ((a == b) && (b == c)) return 0
-    if (((a == b) && (a > c)) || ((a == c) && (a > c)) || ((b == c) && (b > a))) return 0
-    if (((a == b) && (a < c)) || ((a == c) && (a < c)) || ((b == c) && (b < a))) return 2
-    val maxside: Double = a
-    val fside: Double = b
-    val sside: Double = c
-    if (b>maxside) {
-        maxside.equals(b)
-        fside.equals(a)
-        sside.equals(c)
-    }
-    if (c>maxside) {
-        maxside.equals(c)
-        fside.equals(a)
-        sside.equals(b)
-    }
+    if ((a + b <= c) || (a + c <= b) || (b + c <= a)) return -1
     return when {
-        maxside * maxside == fside * fside + sside * sside -> 1
-        maxside * maxside < fside * fside + sside * sside -> 2
-        maxside * maxside > fside * fside + sside * sside -> 0
+        (a * a == b * b + c * c) || (b * b == a * a + c * c) || (c * c == a * a + b * b) -> 1
+        (a * a < b * b + c * c) && (b * b < a * a + c * c) && (c * c < a * a + b * b) -> 0
+        (a * a > b * b + c * c) || (b * b > a * a + c * c) || (c * c > a * a + b * b) -> 2
         else -> -1
-        }
     }
+}
 
 /**
  * Средняя
@@ -160,13 +144,13 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     else -> when {
         (b == c) -> 0
         else -> when {
-            (c > a) && (d < b) -> (d -c)
+            (c > a) && (d < b) -> abs(abs(d) - abs(c))
             else -> when {
-                (a > c) && (b < d) -> (b-a)
+                (a > c) && (b < d) -> abs(abs(b) - abs(a))
                 else -> when {
-                    (a > c) -> (abs(d) - abs(a))
+                    (a > c) -> abs(abs(d) - abs(a))
                     else -> when {
-                    (c > a) -> (abs(b) - abs(c))
+                        (c > a) -> abs(abs(b) - abs(c))
                         else -> -1
                     }
                 }
