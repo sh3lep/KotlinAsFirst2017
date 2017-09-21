@@ -34,15 +34,11 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = when (age%100) {
-    in 5..20 -> "$age лет"
-    else -> when (age%10) {
-        1 -> "$age год"
-        else -> when (age%10) {
-            in 2..4 -> "$age года"
-            else -> "$age лет"
-        }
-    }
+fun ageDescription(age: Int): String = when {
+    (age % 100) in 5..20 -> "$age лет"
+    (age % 10) == 1 -> "$age год"
+    (age % 10) in 2..4 -> "$age года"
+    else -> "$age лет"
 }
 
 /**
@@ -58,12 +54,10 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val halfway = ((t1 * v1 + t2 * v2 + t3 * v3) / 2)
     return when {
         (t1 * v1 >= halfway) -> halfway / v1
-        else -> when {
-            ((t1 * v1 + t2 * v2) >= halfway) -> (halfway - t1 * v1) / v2 + t1
-            else -> (halfway - t1 * v1 - t2 * v2) / v3 + t1 +t2
+        ((t1 * v1 + t2 * v2) >= halfway) -> (halfway - t1 * v1) / v2 + t1
+        else -> (halfway - t1 * v1 - t2 * v2) / v3 + t1 + t2
             }
         }
-    }
 
 /**
  * Простая
@@ -122,11 +116,14 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val a2 = a * a
+    val b2 = b * b
+    val c2 = c * c
     if ((a + b <= c) || (a + c <= b) || (b + c <= a)) return -1
     return when {
-        (a * a == b * b + c * c) || (b * b == a * a + c * c) || (c * c == a * a + b * b) -> 1
-        (a * a < b * b + c * c) && (b * b < a * a + c * c) && (c * c < a * a + b * b) -> 0
-        (a * a > b * b + c * c) || (b * b > a * a + c * c) || (c * c > a * a + b * b) -> 2
+        (a2 == b2 + c2) || (b2 == a2 + c2) || (c2 == a2 + b2) -> 1
+        (a2 < b2 + c2) && (b2 < a2 + c2) && (c2 < a2 + b2) -> 0
+        (a2 > b2 + c2) || (b2 > a2 + c2) || (c2 > a2 + b2) -> 2
         else -> -1
     }
 }
@@ -143,18 +140,10 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     ((a > c && a > d) || (c > a && c > b)) -> -1
     else -> when {
         (b == c) -> 0
-        else -> when {
-            (c >= a) && (d <= b) -> (d - c)
-            else -> when {
-                (a >= c) && (b <= d) -> (b - a)
-                else -> when {
-                    (a > c) -> (d - a)
-                    else -> when {
-                        (c > a) -> (b - c)
-                        else -> -1
-                    }
-                }
-            }
-        }
+        (c >= a) && (d <= b) -> (d - c)
+        (a >= c) && (b <= d) -> (b - a)
+        (a > c) -> (d - a)
+        (c > a) -> (b - c)
+        else -> -1
     }
 }
