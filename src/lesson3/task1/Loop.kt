@@ -67,7 +67,7 @@ fun digitNumber(n: Int): Int {
     var num = n
     var count = 0
     do {
-        num = (num / 10)
+        num /= 10
         count++
     } while (num != 0)
     return count
@@ -84,12 +84,11 @@ fun fib(n: Int): Int {
     var b = 1
     var c = 0
     if ((n == 1) || (n == 2)) return 1
-    else
-        for (i in 3..n) {
+    for (i in 3..n) {
             c = a + b
             a = b
             b = c
-        }
+    }
     return c
 }
 
@@ -113,12 +112,12 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    return if (isPrime(n)) n
-    else {
-        var mindiv = 2
-        while (n % mindiv != 0) mindiv++
-        mindiv
+    if (isPrime(n)) return n
+    for (i in 2..(n / 2)) {
+        if (n % i == 0)
+            return i
     }
+    return n
 }
 
 /**
@@ -143,14 +142,12 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var simple = 0
     val min = minOf(m, n)
-    for (i in 1..min) {
-        if ((m % i == 0) && (n % i == 0)) {
-            simple = i
-        }
+    for (i in 2..min) {
+        if ((m % i == 0) && (n % i == 0))
+            return false
     }
-    return simple == 1
+    return true
 }
 
 /**
@@ -204,7 +201,7 @@ fun revert(n: Int): Int {
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean = (n == revert(n))
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя
