@@ -80,16 +80,14 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var a = 1
-    var b = 1
-    var c = 0
-    if ((n == 1) || (n == 2)) return 1
-    for (i in 3..n) {
-            c = a + b
-            a = b
-            b = c
+    var a = 0
+    var fib = 1
+    for (i in 1 until n) {
+        val b = fib
+        fib += a
+        a = b
     }
-    return c
+    return fib
 }
 
 /**
@@ -114,7 +112,7 @@ fun lcm(m: Int, n: Int): Int {
 fun minDivisor(n: Int): Int {
     if (isPrime(n))
         return n
-    for (i in 2..(n / 2)) {
+    for (i in 2..(sqrt(n.toDouble())).toInt()) {
         if (n % i == 0)
             return i
     }
