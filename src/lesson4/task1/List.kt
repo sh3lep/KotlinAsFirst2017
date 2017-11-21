@@ -2,6 +2,8 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import java.lang.Math.pow
 import java.lang.Math.sqrt
 
 /**
@@ -200,7 +202,19 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var count = 2
+    var num = n
+    val res = mutableListOf<Int>()
+    while (count <= sqr(num.toDouble()).toInt()) {
+        if (num % count == 0) {
+            res += count
+            num /= count
+        } else count += 1
+    }
+    return res
+}
+
 
 /**
  * Сложная
@@ -208,7 +222,7 @@ fun factorize(n: Int): List<Int> = TODO()
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
@@ -217,7 +231,16 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    if (n == 1) return listOf(1)
+    val res = mutableListOf<Int>()
+    var num = n
+    while (num >= base) {
+        res += (num % base)
+        num = (num - num % base) / base
+    }
+    return (res + num).reversed()
+}
 
 /**
  * Сложная
@@ -236,7 +259,15 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int {
+    var res = 0
+    var p = 0
+    for (i in (digits.size - 1) downTo 0) {
+        res += digits[i] * pow(base.toDouble(), p.toDouble()).toInt()
+        p++
+    }
+    return res
+}
 
 /**
  * Сложная
@@ -257,7 +288,20 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val romnums = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val arabnums = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    var num = n
+    var i = 0
+    val res = mutableListOf<String>()
+    while (num > 0) {
+        if (arabnums[i] <= num) {
+            res.add(romnums[i])
+            num -= arabnums[i]
+        } else i += 1
+    }
+    return res.joinToString(separator = "")
+}
 
 /**
  * Очень сложная
