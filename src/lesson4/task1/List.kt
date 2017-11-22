@@ -206,7 +206,7 @@ fun factorize(n: Int): List<Int> {
     var count = 2
     var num = n
     val res = mutableListOf<Int>()
-    while (count <= sqr(num.toDouble()).toInt()) {
+    while (count <= n) {
         if (num % count == 0) {
             res += count
             num /= count
@@ -232,7 +232,6 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    if (n == 1) return listOf(1)
     val res = mutableListOf<Int>()
     var num = n
     while (num >= base) {
