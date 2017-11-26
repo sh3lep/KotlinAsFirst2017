@@ -2,7 +2,6 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import lesson1.task1.sqr
 import java.lang.Math.pow
 import java.lang.Math.sqrt
 
@@ -206,11 +205,11 @@ fun factorize(n: Int): List<Int> {
     var count = 2
     var num = n
     val res = mutableListOf<Int>()
-    while (count <= n) {
+    while (num > 1) {
         if (num % count == 0) {
             res += count
             num /= count
-        } else count += 1
+        } else count++
     }
     return res
 }
@@ -249,7 +248,16 @@ fun convert(n: Int, base: Int): List<Int> {
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val nums = convert(n, base)
+    val betternums = StringBuilder()
+    for (i in 0..nums.size - 1) {
+        if (nums[i] > 9) {
+            betternums.append('W' + nums[i])
+        } else betternums.append(nums[i].toString())
+    }
+    return betternums.toString()
+}
 
 /**
  * Средняя
@@ -297,7 +305,7 @@ fun roman(n: Int): String {
         if (arabnums[i] <= num) {
             res.add(romnums[i])
             num -= arabnums[i]
-        } else i += 1
+        } else i++
     }
     return res.joinToString(separator = "")
 }
