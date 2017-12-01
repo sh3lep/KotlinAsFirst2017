@@ -100,7 +100,7 @@ fun dateDigitToStr(digital: String): String = TODO()
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    val mobile = Regex("""\+|\(|\)|-|\s""").replace(phone, "")
+    val mobile = Regex("""(^\+)|\(|\)|-|\s|_""").replace(phone, "")
     return when {
         mobile.contains(Regex("""\D""")) -> ""
         phone.contains(Regex("""\+.""")) -> "+" + mobile
@@ -127,7 +127,7 @@ fun bestLongJump(jumps: String): Int {
                 if (control < result.toInt()) {
                     control = result.toInt()
                 }
-            } catch (e: Exception) {
+            } catch (e: NumberFormatException) {
                 return -1
             }
         }

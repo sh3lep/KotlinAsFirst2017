@@ -254,7 +254,7 @@ fun convertToString(n: Int, base: Int): String {
     for (i in 0..nums.size - 1) {
         if (nums[i] > 9) {
             betternums.append('W' + nums[i])
-        } else betternums.append(nums[i].toString())
+        } else betternums.append(nums[i])
     }
     return betternums.toString()
 }
