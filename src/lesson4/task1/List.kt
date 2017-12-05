@@ -2,6 +2,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson3.task1.digitNumber
 import java.lang.Math.pow
 import java.lang.Math.sqrt
 
@@ -251,7 +252,7 @@ fun convert(n: Int, base: Int): List<Int> {
 fun convertToString(n: Int, base: Int): String {
     val nums = convert(n, base)
     val betternums = StringBuilder()
-    for (i in 0..nums.size - 1) {
+    for (i in 0 until nums.size) {
         if (nums[i] > 9) {
             betternums.append('W' + nums[i])
         } else betternums.append(nums[i])
@@ -317,4 +318,42 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+
+val nums1 = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+val nums2 = listOf("", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+        "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать", "двадцать", "тридцать", "сорок", "пятьдесят",
+        "шестьдесят", "семьдесят", "восемдесят", "девяносто")
+val nums3 = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот",
+        "девятьсот")
+
+fun twoDigits(n: Int): String = when {
+    (digitNumber(n) == 1) -> nums1[n]
+    (n > 19) -> (nums2[(n - n % 10) / 10 + 9] + " " + nums1[n % 10]).trim()
+    else -> (nums2[n % 10 + 1]).trim()
+}
+
+fun threeDigits(n: Int): String = (nums3[(n - n % 100) / 100] + " " + twoDigits(n % 100)).trim()
+
+fun russian(n: Int): String {
+    val nums1 = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val amount = digitNumber(n)
+    if (amount == 1) return nums1[n]
+    if (amount == 2) return twoDigits(n)
+    if (amount == 3) return threeDigits(n)
+    if (amount > 3) {
+        val hundreds = russian(n % 1000)
+        val thousands = (n - n % 1000) / 1000
+        if (thousands == 1)
+            return ("одна тысяча" + " " + hundreds).trim()
+        if (thousands == 2)
+            return ("две тысячи" + " " + hundreds).trim()
+        if ((thousands % 10 == 2) && (thousands > 19))
+            return (russian(thousands).substring(0, russian(thousands).lastIndexOf(" ", russian(thousands).length)) +
+                    " " + "две" + " " + "тысячи" + " " + hundreds).trim()
+        if (thousands % 10 in 3..4)
+            return (russian(thousands) + " " + "тысячи" + " " + hundreds).trim()
+        if (thousands > 4)
+            return (russian(thousands) + " " + "тысяч" + " " + hundreds).trim()
+    }
+    return "-1"
+}
