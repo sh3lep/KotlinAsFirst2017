@@ -347,7 +347,7 @@ fun russian(n: Int): String {
             return ("одна тысяча" + " " + hundreds).trim()
         if (thousands == 2)
             return ("две тысячи" + " " + hundreds).trim()
-        if ((thousands % 10 == 2) && (thousands > 19))
+        if ((thousands % 10 == 2) && (thousands % 100 != 12))
             return (russian(thousands).substring(0, russian(thousands).lastIndexOf(" ", russian(thousands).length)) +
                     " " + "две" + " " + "тысячи" + " " + hundreds).trim()
         if (thousands % 10 in 3..4)
