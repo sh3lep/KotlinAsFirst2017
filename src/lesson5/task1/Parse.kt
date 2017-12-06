@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson5.task1
 
+import java.lang.Math.floor
+
 /**
  * Пример
  *
@@ -234,4 +236,37 @@ fun fromRoman(roman: String): Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
+    val postcells = mutableListOf<Int>()
+    for (i in 0 until cells) {
+        postcells.add(0)
+    }
+    var curcell = floor((cells / 2).toDouble()).toInt()
+    var count = 0
+    while ((count != limit) || (count != commands.length - 1)) {
+        for (i in 0 until commands.length) {
+            if (commands[i] == '+') {
+                postcells[curcell]++
+                count++
+                continue
+            }
+            if (commands[i] == '-') {
+                postcells[curcell]--
+                count++
+                continue
+            }
+            if (commands[i] == '>') {
+                curcell += 1
+                count++
+                continue
+            }
+            if (commands[i] == '<') {
+                curcell -= 1
+                count++
+                continue
+            }
+        }
+    }
+    return postcells
+}

@@ -344,11 +344,14 @@ fun russian(n: Int): String {
         val thousands = (n - n % 1000) / 1000
         if (thousands == 1)
             return ("одна тысяча" + " " + hundreds).trim()
+        if ((thousands % 10 == 1) && (thousands % 100 != 11))
+            return (russian(thousands).substring(0, russian(thousands).lastIndexOf(" ", russian(thousands).length)) +
+                    " " + "одна тысяча" + " " + hundreds).trim()
         if (thousands == 2)
             return ("две тысячи" + " " + hundreds).trim()
         if ((thousands % 10 == 2) && (thousands % 100 != 12))
             return (russian(thousands).substring(0, russian(thousands).lastIndexOf(" ", russian(thousands).length)) +
-                    " " + "две" + " " + "тысячи" + " " + hundreds).trim()
+                    " " + "две тысячи" + " " + hundreds).trim()
         if (thousands % 10 in 3..4)
             return (russian(thousands) + " " + "тысячи" + " " + hundreds).trim()
         if (thousands > 4)
