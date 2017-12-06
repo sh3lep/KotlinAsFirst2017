@@ -335,7 +335,6 @@ fun twoDigits(n: Int): String = when {
 fun threeDigits(n: Int): String = (nums3[(n - n % 100) / 100] + " " + twoDigits(n % 100)).trim()
 
 fun russian(n: Int): String {
-    val nums1 = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
     val amount = digitNumber(n)
     if (amount == 1) return nums1[n]
     if (amount == 2) return twoDigits(n)
