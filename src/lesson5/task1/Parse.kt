@@ -69,7 +69,8 @@ fun main(args: Array<String>) {
  * При неверном формате входной строки вернуть пустую строку
  */
 fun dateStrToDigit(str: String): String {
-    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября",
+            "октября", "ноября", "декабря")
     val parts = str.split(" ")
     if (parts.size != 3 || months.indexOf(parts[1]) == -1) return ""
     try {
@@ -87,7 +88,17 @@ fun dateStrToDigit(str: String): String {
  * Перевести её в строковый формат вида "15 июля 2016".
  * При неверном формате входной строки вернуть пустую строку
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября",
+            "октября", "ноября", "декабря")
+    val dmg = digital.split('.')
+    if ((dmg.size != 3) || (dmg[1]) == "00") return ""
+    try {
+        return Regex("""0(?=\d)""").replace(dmg[0], "") + " " + months[dmg[1].toInt() - 1] + " " + dmg[2]
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Средняя
@@ -237,7 +248,7 @@ fun fromRoman(roman: String): Int = TODO()
  *
  */
 
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> { //просто набросок первой части решения
     val postcells = mutableListOf<Int>()
     for (i in 0 until cells) {
         postcells.add(0)
