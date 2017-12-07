@@ -172,7 +172,23 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val sum = expression.split(" ")
+    try {
+        var res = sum[0].toInt()
+        for (i in 1 until sum.size step 2) {
+            if (sum[i] == "+") {
+                res += sum[i + 1].toInt()
+            }
+            if (sum[i] == "-") {
+                res -= sum[i + 1].toInt()
+            }
+        }
+        return res
+    } catch (e: NumberFormatException) {
+        throw IllegalArgumentException()
+    }
+}
 
 /**
  * Сложная
