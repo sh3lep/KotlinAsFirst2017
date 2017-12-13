@@ -251,13 +251,13 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     val nums = convert(n, base)
-    val betternums = StringBuilder()
+    val betterNums = StringBuilder()
     for (i in 0 until nums.size) {
         if (nums[i] > 9) {
-            betternums.append('W' + nums[i])
-        } else betternums.append(nums[i])
+            betterNums.append('a' - 10 + nums[i])
+        } else betterNums.append(nums[i])
     }
-    return betternums.toString()
+    return betterNums.toString()
 }
 
 /**
@@ -339,7 +339,7 @@ fun russian(n: Int): String {
     if (amount == 1) return nums1[n]
     if (amount == 2) return twoDigits(n)
     if (amount == 3) return threeDigits(n)
-    if (amount > 3) {
+    else {
         val hundreds = russian(n % 1000)
         val thousands = (n - n % 1000) / 1000
         if (thousands == 1)

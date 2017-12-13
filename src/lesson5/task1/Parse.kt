@@ -133,19 +133,20 @@ fun flattenPhoneNumber(phone: String): String {
  */
 fun bestLongJump(jumps: String): Int {
     val listOfResults = jumps.split(" ")
-    var control = -1
-    for (result in listOfResults) {
-        if (result !in listOf("%", "-", "")) {
+    var result = -1
+    for (cur in listOfResults) {
+        if (cur !in listOf("%", "-", "")) {
             try {
-                if (control < result.toInt()) {
-                    control = result.toInt()
+                val res = cur.toInt()
+                if (result < res) {
+                    result = res
                 }
             } catch (e: NumberFormatException) {
                 return -1
             }
         }
     }
-    return control
+    return result
 }
 
 /**
@@ -271,28 +272,40 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> { //
     }
     var curcell = floor((cells / 2).toDouble()).toInt()
     var count = 0
-    while ((count != limit) || (count != commands.length - 1)) {
-        for (i in 0 until commands.length) {
+    var n = 0
+    while ((count < limit) && (curcell < commands.length - 1) && (curcell > 0)) {
+        for (i in n until commands.length) {
             if (commands[i] == '+') {
                 postcells[curcell]++
-                count++
-                continue
             }
             if (commands[i] == '-') {
                 postcells[curcell]--
-                count++
-                continue
             }
             if (commands[i] == '>') {
-                curcell += 1
-                count++
-                continue
+                curcell++
             }
             if (commands[i] == '<') {
-                curcell -= 1
-                count++
-                continue
+                curcell--
             }
+            if ((commands[i] == '[') && (postcells[curcell] == 0)) {
+                val ff = i
+                for (j in ff + 1 until commands.length) {
+                    if (commands[j] == ']') {
+                        n = j + 1
+                        break
+                    }
+                }
+            }
+            if ((commands[i] == ']') && (postcells[curcell] != 0)) {
+                val ff = i
+                for (j in ff - 1 downTo 0) {
+                    if (commands[j] == '[') {
+                        n = j + 1
+                        break
+                    }
+                }
+            }
+            count++
         }
     }
     return postcells
