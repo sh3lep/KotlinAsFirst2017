@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import jdk.nashorn.internal.ir.FunctionCall
 import lesson1.task1.sqr
 import java.lang.Math.*
 
