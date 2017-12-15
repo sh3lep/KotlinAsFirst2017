@@ -2,6 +2,7 @@
 package lesson7.task2
 
 import lesson7.task1.Matrix
+import lesson7.task1.MatrixImpl
 import lesson7.task1.createMatrix
 
 // Все задачи в этом файле требуют наличия реализации интерфейса "Матрица" в Matrix.kt
@@ -103,7 +104,16 @@ fun generateSnake(height: Int, width: Int): Matrix<Int> = TODO()
  * 4 5 6      8 5 2
  * 7 8 9      9 6 3
  */
-fun <E> rotate(matrix: Matrix<E>): Matrix<E> = TODO()
+fun <E> rotate(matrix: Matrix<E>): Matrix<E> {
+    if (matrix.height != matrix.width) throw IllegalArgumentException()
+    val result = MatrixImpl(matrix.height, matrix.width, matrix[0, 0])
+    for (i in 0 until matrix.height) {
+        for (j in 0 until matrix.width) {
+            result[i, (matrix.width - 1) - j] = matrix[j, i]
+        }
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -154,7 +164,33 @@ fun sumNeighbours(matrix: Matrix<Int>): Matrix<Int> = TODO()
  * 0 0 1 0
  * 0 0 0 0
  */
-fun findHoles(matrix: Matrix<Int>): Holes = TODO()
+fun findHoles(matrix: Matrix<Int>): Holes {
+    val rows = mutableListOf<Int>()
+    val columns = mutableListOf<Int>()
+    var count = 0
+    for (i in 0 until matrix.height) {
+        for (j in 0 until matrix.width) {
+            if (matrix[i, j] == 0) count++
+            if (matrix[i, j] != 0) {
+                count = 0
+                break
+            }
+            if (count == matrix.width) rows.add(i)
+        }
+        count = 0
+    }
+    for (k in 0 until matrix.width) {
+        for (n in 0 until matrix.height) {
+            if (matrix[n, k] == 0) count++
+            if (matrix[n, k] != 0) {
+                count = 0
+                break
+            }
+            if (count == matrix.width) columns.add(k)
+        }
+    }
+    return Holes(rows, columns)
+}
 
 /**
  * Класс для описания местонахождения "дырок" в матрице
@@ -205,7 +241,14 @@ fun canOpenLock(key: Matrix<Int>, lock: Matrix<Int>): Triple<Boolean, Int, Int> 
  * Инвертировать заданную матрицу.
  * При инвертировании знак каждого элемента матрицы следует заменить на обратный
  */
-operator fun Matrix<Int>.unaryMinus(): Matrix<Int> = TODO(this.toString())
+operator fun Matrix<Int>.unaryMinus(): Matrix<Int> {
+    for (height in 0 until this.height) {
+        for (width in 0 until this.width) {
+            this[height, width] = -this[height, width]
+        }
+    }
+    return this
+}
 
 /**
  * Средняя

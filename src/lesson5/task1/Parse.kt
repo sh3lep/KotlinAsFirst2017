@@ -265,48 +265,4 @@ fun fromRoman(roman: String): Int = TODO()
  *
  */
 
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> { //просто набросок первой части решения
-    val postcells = mutableListOf<Int>()
-    for (i in 0 until cells) {
-        postcells.add(0)
-    }
-    var curcell = floor((cells / 2).toDouble()).toInt()
-    var count = 0
-    var n = 0
-    while ((count < limit) && (curcell < commands.length - 1) && (curcell > 0)) {
-        for (i in n until commands.length) {
-            if (commands[i] == '+') {
-                postcells[curcell]++
-            }
-            if (commands[i] == '-') {
-                postcells[curcell]--
-            }
-            if (commands[i] == '>') {
-                curcell++
-            }
-            if (commands[i] == '<') {
-                curcell--
-            }
-            if ((commands[i] == '[') && (postcells[curcell] == 0)) {
-                val ff = i
-                for (j in ff + 1 until commands.length) {
-                    if (commands[j] == ']') {
-                        n = j + 1
-                        break
-                    }
-                }
-            }
-            if ((commands[i] == ']') && (postcells[curcell] != 0)) {
-                val ff = i
-                for (j in ff - 1 downTo 0) {
-                    if (commands[j] == '[') {
-                        n = j + 1
-                        break
-                    }
-                }
-            }
-            count++
-        }
-    }
-    return postcells
-}
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
