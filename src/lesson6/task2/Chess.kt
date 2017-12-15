@@ -41,7 +41,9 @@ data class Square(val column: Int, val row: Int) {
 val columnAlph = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
 
 fun square(notation: String): Square {
-    if (notation[0] !in columnAlph || notation[1] - '0' !in 1..8) throw IllegalArgumentException()
+    if (notation[0] !in columnAlph || notation[1] !in listOf('1', '2', '3', '4', '5', '6', '7', '8') || notation == "") {
+        throw IllegalArgumentException()
+    }
     return Square(columnAlph.indexOf(notation[0]) + 1, (notation[1] - '0'))
 }
 

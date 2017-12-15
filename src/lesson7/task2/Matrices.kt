@@ -188,6 +188,7 @@ fun findHoles(matrix: Matrix<Int>): Holes {
             }
             if (count == matrix.width) columns.add(k)
         }
+        count = 0
     }
     return Holes(rows, columns)
 }
