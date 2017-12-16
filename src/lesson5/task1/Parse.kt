@@ -175,6 +175,7 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int {
     val sum = expression.split(" ")
+    if (!expression.matches(Regex("""(?:\d+\s*[-+]\s*)+\d+|\d+"""))) throw IllegalArgumentException()
     try {
         var res = sum[0].toInt()
         for (i in 1 until sum.size step 2) {
