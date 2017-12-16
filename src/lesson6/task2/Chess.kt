@@ -47,6 +47,7 @@ fun square(notation: String): Square {
     return Square(columnAlph.indexOf(notation[0]) + 1, (notation[1] - '0'))
 }
 
+
 /**
  * Простая
  *

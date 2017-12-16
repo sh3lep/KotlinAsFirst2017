@@ -214,6 +214,7 @@ fun findHoles(matrix: Matrix<Int>): Holes {
     return Holes(rows, columns)
 }
 
+
 /**
  * Класс для описания местонахождения "дырок" в матрице
  */
