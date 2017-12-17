@@ -106,6 +106,7 @@ fun generateSnake(height: Int, width: Int): Matrix<Int> = TODO()
  */
 fun <E> rotate(matrix: Matrix<E>): Matrix<E> {
     if (matrix.height != matrix.width) throw IllegalArgumentException()
+    if (matrix.height < 1 || matrix.width < 1) return matrix
     val result = MatrixImpl(matrix.height, matrix.width, matrix[0, 0])
     for (i in 0 until matrix.height) {
         for (j in 0 until matrix.width) {
@@ -165,51 +166,19 @@ fun sumNeighbours(matrix: Matrix<Int>): Matrix<Int> = TODO()
  * 0 0 0 0
  */
 fun findHoles(matrix: Matrix<Int>): Holes {
+    val checkRows = mutableListOf<Int>()
+    val checkColumns = mutableListOf<Int>()
     val rows = mutableListOf<Int>()
     val columns = mutableListOf<Int>()
-    if (matrix.width == 1 && matrix.height != 1) {
-        var checkRow = 0
-        for (i in 0 until matrix.height) {
-            if (matrix[i, 0] == 0) {
-                columns.add(i)
-                checkRow++
-            }
-            if (checkRow == matrix.height) rows.add(0)
-        }
-    }
-    if (matrix.height == 1 && matrix.width != 1) {
-        var checkColumn = 0
-        for (j in 0 until matrix.width) {
-            if (matrix[0, j] == 0) {
-                rows.add(j)
-                checkColumn++
-            }
-            if (checkColumn == matrix.width) columns.add(0)
-        }
-    }
-    if (rows.isNotEmpty() || columns.isNotEmpty()) return Holes(rows, columns)
-    var count = 0
     for (i in 0 until matrix.height) {
-        for (j in 0 until matrix.width) {
-            if (matrix[i, j] == 0) count++
-            if (matrix[i, j] != 0) {
-                count = 0
-                break
-            }
-            if (count == matrix.width) rows.add(i)
-        }
-        count = 0
+        for (j in 0 until matrix.width) checkRows += matrix[i, j]
+        if (checkRows.sorted()[matrix.width - 1] != 1) rows += i
+        checkRows.clear()
     }
-    for (k in 0 until matrix.width) {
-        for (n in 0 until matrix.height) {
-            if (matrix[n, k] == 0) count++
-            if (matrix[n, k] != 0) {
-                count = 0
-                break
-            }
-            if (count == matrix.width) columns.add(k)
-        }
-        count = 0
+    for (n in 0 until matrix.width) {
+        for (k in 0 until matrix.height) checkColumns += matrix[k, n]
+        if (checkColumns.sorted()[matrix.height - 1] != 1) columns += n
+        checkColumns.clear()
     }
     return Holes(rows, columns)
 }

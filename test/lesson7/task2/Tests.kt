@@ -146,9 +146,6 @@ class Tests {
     @Test
     @Tag("Normal")
     fun findHoles() {
-        assertEquals(Holes(listOf(1, 3, 4), listOf()), findHoles(createMatrix(1, 5, listOf(listOf(1, 0, 1, 0, 0)))))
-        assertEquals(Holes(listOf(0, 1, 2, 3, 4), listOf(0)), findHoles(createMatrix(1, 5, listOf(listOf(0, 0, 0, 0, 0)))))
-
         assertEquals(Holes(listOf(), listOf()), findHoles(createMatrix(1, 1, listOf(listOf(1)))))
         assertEquals(Holes(listOf(0), listOf(0)), findHoles(createMatrix(1, 1, listOf(listOf(0)))))
         assertEquals(Holes(listOf(), listOf()), findHoles(createMatrix(2, 2, listOf(listOf(0, 1), listOf(1, 0)))))
