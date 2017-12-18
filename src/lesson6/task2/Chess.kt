@@ -23,11 +23,9 @@ data class Square(val column: Int, val row: Int) {
      * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
      * Для клетки не в пределах доски вернуть пустую строку
      */
-    val columnAlph = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
-
     fun notation(): String = when {
         (!inside()) -> ""
-        else -> (columnAlph[column - 1] + (row).toString())
+        else -> ((column + 96).toChar() + row.toString())
     }
 }
 
@@ -38,13 +36,12 @@ data class Square(val column: Int, val row: Int) {
  * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
  * Если нотация некорректна, бросить IllegalArgumentException
  */
-val columnAlph = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
 
 fun square(notation: String): Square {
     if ((notation.length != 2) || (notation[0] !in 'a'..'h') || (notation[1] !in '1'..'8')) {
         throw IllegalArgumentException("Invalid string")
     }
-    return Square(columnAlph.indexOf(notation[0]) + 1, (notation[1] - '0'))
+    return Square(notation[0].toInt() - 96, notation[1] - '0')
 }
 
 
