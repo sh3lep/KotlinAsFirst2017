@@ -41,7 +41,7 @@ fun square(notation: String): Square {
     if ((notation.length != 2) || (notation[0] !in 'a'..'h') || (notation[1] !in '1'..'8')) {
         throw IllegalArgumentException("Invalid string")
     }
-    return Square(notation[0].toInt() - 96, notation[1] - '0')
+    return Square(notation[0] + 1 - 'a', notation[1] - '0')
 }
 
 
