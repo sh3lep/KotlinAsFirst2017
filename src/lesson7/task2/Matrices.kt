@@ -166,21 +166,27 @@ fun sumNeighbours(matrix: Matrix<Int>): Matrix<Int> = TODO()
  * 0 0 0 0
  */
 fun findHoles(matrix: Matrix<Int>): Holes {
-    val checkRows = mutableListOf<Int>()
-    val checkColumns = mutableListOf<Int>()
-    val rows = mutableListOf<Int>()
-    val columns = mutableListOf<Int>()
+    var count = 0
+    var num = 0
+    val row = mutableListOf<Int>()
+    val column = mutableListOf<Int>()
     for (i in 0 until matrix.height) {
-        for (j in 0 until matrix.width) checkRows += matrix[i, j]
-        if (checkRows.sorted()[matrix.width - 1] != 1) rows += i
-        checkRows.clear()
+        for (j in 0 until matrix.width) {
+            if (matrix[i, j] == 0)
+                count++
+        }
+        if (count == matrix.width) row.add(i)
+        count = 0
     }
-    for (n in 0 until matrix.width) {
-        for (k in 0 until matrix.height) checkColumns += matrix[k, n]
-        if (checkColumns.sorted()[matrix.height - 1] != 1) columns += n
-        checkColumns.clear()
+    for (i in 0 until matrix.width) {
+        for (j in 0 until matrix.height) {
+            if (matrix[j, i] == 0)
+                num++
+        }
+        if (num == matrix.height) column.add(i)
+        num = 0
     }
-    return Holes(rows, columns)
+    return Holes(row, column)
 }
 
 
