@@ -80,7 +80,21 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    val correction = listOf<Char>('Ы', 'И', 'ы', 'и', 'Я', 'А', 'я', 'а', 'Ю', 'У', 'ю', 'у')
+    for (line in File(inputName).readLines()) {
+        if (line.length <= 1) writer.write(line)
+        else {
+            writer.write(line[0].toString())
+            for (s in 1 until line.length) {
+                if (line[s - 1] in "ЖШЧЩжшчщ" && line[s] in "ЫЮЯыюя")
+                    writer.write(correction[correction.indexOf(line[s]) + 1].toString())
+                else writer.write(line[s].toString())
+            }
+            writer.newLine()
+        }
+    }
+    writer.close()
 }
 
 /**
@@ -101,7 +115,25 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var max = -1
+    for (line in File(inputName).readLines()) {
+        if (line.trim().length > max) max = line.trim().length
+    }
+    for (line in File(inputName).readLines()) {
+        if ((line.trim()).length == max) {
+            writer.write(line.trim())
+            writer.newLine()
+        } else {
+            val dif = max - line.trim().length
+            for (i in 0 until dif / 2) {
+                writer.write(" ")
+            }
+            writer.write(line.trim())
+            writer.newLine()
+        }
+    }
+    writer.close()
 }
 
 /**
@@ -149,7 +181,9 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+    TODO()
+}
 
 /**
  * Средняя
