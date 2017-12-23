@@ -110,7 +110,7 @@ fun <E> rotate(matrix: Matrix<E>): Matrix<E> {
     val result = MatrixImpl(matrix.height, matrix.width, matrix[0, 0])
     for (i in 0 until matrix.height) {
         for (j in 0 until matrix.width) {
-            result[i, (matrix.width - 1) - j] = matrix[j, i]
+            result[i, matrix.width - j - 1] = matrix[j, i]
         }
     }
     return result
@@ -238,9 +238,9 @@ fun canOpenLock(key: Matrix<Int>, lock: Matrix<Int>): Triple<Boolean, Int, Int> 
  * При инвертировании знак каждого элемента матрицы следует заменить на обратный
  */
 operator fun Matrix<Int>.unaryMinus(): Matrix<Int> {
-    for (height in 0 until this.height) {
-        for (width in 0 until this.width) {
-            this[height, width] = -this[height, width]
+    for (i in 0 until this.height) {
+        for (j in 0 until this.width) {
+            this[i, j] = -this[i, j]
         }
     }
     return this

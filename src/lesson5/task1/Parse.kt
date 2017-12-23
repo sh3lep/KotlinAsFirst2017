@@ -74,8 +74,8 @@ fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
     if (parts.size != 3 || months.indexOf(parts[1]) == -1) return ""
     try {
-        val digitmonth = months.indexOf(parts[1]) + 1
-        return String.format("%02d.%02d.%d", parts[0].toInt(), digitmonth, parts[2].toInt())
+        val digitMonth = months.indexOf(parts[1]) + 1
+        return String.format("%02d.%02d.%d", parts[0].toInt(), digitMonth, parts[2].toInt())
     } catch (e: NumberFormatException) {
         return ""
     }
@@ -132,9 +132,9 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val listOfResults = jumps.split(" ")
+    val list = jumps.split(" ")
     var result = -1
-    for (cur in listOfResults) {
+    for (cur in list) {
         if (cur !in listOf("%", "-", "")) {
             try {
                 val res = cur.toInt()

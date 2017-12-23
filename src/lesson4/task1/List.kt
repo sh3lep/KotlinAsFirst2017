@@ -153,11 +153,11 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    var comp = 0.0
+    var res = 0.0
     for (i in 0 until a.size) {
-        comp += a[i] * b[i]
+        res += a[i] * b[i]
     }
-    return comp
+    return res
 }
 
 /**
@@ -251,13 +251,13 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     val nums = convert(n, base)
-    val betterNums = StringBuilder()
+    val postNums = StringBuilder()
     for (i in 0 until nums.size) {
         if (nums[i] > 9) {
-            betterNums.append('a' - 10 + nums[i])
-        } else betterNums.append(nums[i])
+            postNums.append('a' - 10 + nums[i])
+        } else postNums.append(nums[i])
     }
-    return betterNums.toString()
+    return postNums.toString()
 }
 
 /**
@@ -297,15 +297,15 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    val romnums = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
-    val arabnums = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val romNums = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val arabNums = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     var num = n
     var i = 0
     val res = mutableListOf<String>()
     while (num > 0) {
-        if (arabnums[i] <= num) {
-            res.add(romnums[i])
-            num -= arabnums[i]
+        if (arabNums[i] <= num) {
+            res.add(romNums[i])
+            num -= arabNums[i]
         } else i++
     }
     return res.joinToString(separator = "")
